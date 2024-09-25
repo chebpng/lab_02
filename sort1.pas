@@ -26,3 +26,4 @@ SetLength(mass, n);
 		write(mass[i], ' ');
 	end;
 end.
+//1

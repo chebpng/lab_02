@@ -1,12 +1,13 @@
 ﻿program sort;
 var
-  mass: array of integer;
-  i, n, a, IsSort, SortType, STime, ETime: integer;
+  mass, massSort: array of integer;
+  i, ii, n, a, IsSort, SortType, max, maxI: integer;
 begin
   writeln('Выберите тип сортировки');
   writeln('1- Простейший алгоритм сортировки');
+  writeln('2- Алгоритм обменной сортировки');  
   readln(SortType);
-  if (SortType < 1) or (SortType > 1) then
+  if (SortType < 1) or (SortType > 2) then
     begin
       writeln('Укажите верный тип сортировки');
       readln();
@@ -61,9 +62,41 @@ if SortType = 1 then
        end;
       end;
     end;
- //первый метод сортировки---------------------------------------   
+//первый метод сортировки---------------------------------------   
  
+//второй метод сортировки--------------------------------------- 
 
+if SortType = 2 then
+  begin
+    //I.5. Идея алгоритма упорядочения выбором
+//Основа – поиск максимального значения в массиве. Элемент с максимальным значением меняется местами с последним элементом массива. 
+//Затем поиск максимума проводится среди первых (n-1) элементов. Найденный элемент меняется местами с предпоследним, и т.д., 
+//пока область поиска максимума не сократится до одного элемента.
+SetLength(massSort, n);
+
+for ii := 0 to n-1 do
+begin
+  // Найдите максимальный элемент в массиве
+  max := mass[0]; 
+  maxI := 0; 
+
+  for i := 1 to n-1 do
+  begin
+    if max < mass[i] then
+    begin
+      max := mass[i];
+      maxI := i;
+    end;
+  end;
+
+  // Переместите максимальный элемент в massSort
+  massSort[ii] := max;
+
+  // Меняйте местами максимальный элемент с mass[ii]
+  mass[maxI] := mass[ii];
+end;
+  end;
+//второй метод сортировки--------------------------------------- 
     
 //вывод итога сортировки
   writeln();
@@ -71,6 +104,6 @@ if SortType = 1 then
   writeln();
   for i := 0 to n-1 do
   begin
-    write(mass[i], ' ');
+    write(massSort[i], ' ');
   end;
 end.

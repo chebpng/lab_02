@@ -1,8 +1,18 @@
 ﻿program sort;
 var
   mass: array of integer;
-  i, n, a, IsSort: integer;
+  i, n, a, IsSort, SortType, STime, ETime: integer;
 begin
+  writeln('Выберите тип сортировки');
+  writeln('1- Простейший алгоритм сортировки');
+  readln(SortType);
+  if (SortType < 1) or (SortType > 1) then
+    begin
+      writeln('Укажите верный тип сортировки');
+      readln();
+      exit;    
+    end;
+  writeln('Введите длинну массива');
   readln(n);
 
   if (n < 1) or (n > 1000000) then
@@ -31,24 +41,31 @@ begin
     write(mass[i], ' ');
   end;
 
-
-  IsSort := 0;
-  while IsSort <> 1 do
-  begin
-    IsSort := 1; // Предполагаем, что массив отсортирован
-    for i := 0 to n-2 do
+//первый метод сортировки---------------------------------------
+if SortType = 1 then
+  begin  
+    IsSort := 0;
+    while IsSort <> 1 do
     begin
-      if mass[i] > mass[i+1] then
+      IsSort := 1; // Предполагаем, что массив отсортирован
+      for i := 0 to n-2 do
       begin
-        a := mass[i];
-        mass[i] := mass[i+1];
-        mass[i+1] := a;
-        IsSort := 0; // Массив не отсортирован, устанавливаем IsSort в 0
-        break; // Прерываем цикл, так как нужно сделать еще один проход
+        if mass[i] > mass[i+1] then
+        begin
+          a := mass[i];
+          mass[i] := mass[i+1];
+          mass[i+1] := a;
+          IsSort := 0; // Массив не отсортирован, устанавливаем IsSort в 0
+          break; // Прерываем цикл, так как нужно сделать еще один проход
+        end;
+       end;
       end;
     end;
-  end;
+ //первый метод сортировки---------------------------------------   
+ 
 
+    
+//вывод итога сортировки
   writeln();
   writeln('------------------------------отсортированный массив---------------------------');
   writeln();
@@ -56,6 +73,4 @@ begin
   begin
     write(mass[i], ' ');
   end;
-
-  readln();
 end.

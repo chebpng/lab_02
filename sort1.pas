@@ -2,7 +2,26 @@
 var
   mass, massSort: array of integer;
   i, n, a, Sorted, SortType, temp: integer;
+  
+function Test(var Mass : array of Integer; n : Integer) : Boolean;
 begin
+  // проверка упорядоченности по возрастанию
+  i := 0;
+  while (i < n-1) and (Mass[i] <= Mass[i+1]) do
+    i := i+1;
+  if i < n-1 then Test := False
+  else Test := True;
+end;
+
+begin
+  //описание функций
+  
+  
+  
+  //описание функций
+  
+  
+  
   writeln('Выберите тип сортировки');
   writeln('1- Простейший алгоритм сортировки');
   writeln('2- Алгоритм обменной сортировки');  
@@ -99,5 +118,20 @@ while Sorted <> 1 do
   begin
     write(mass[i], ' ');
   end; 
-//1
+  if Test(mass, n) then
+    begin
+    writeln(' ');
+    writeln(' ');
+    writeln('Массив отсортирован');
+    readln();
+    exit
+    end
+  else
+    begin
+      writeln(' ');
+      writeln(' ');
+      writeln('Массив не отсортирован');
+      readln();
+      exit
+    end;
 end.

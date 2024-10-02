@@ -1,5 +1,7 @@
 ﻿program sort;
-var
+uses SysUtils, DateUtils;
+var 
+  StartTime, EndTime: TDateTime;
   mass, massSort: array of integer;
   i, n, a, Sorted, SortType, temp: integer;
   
@@ -102,7 +104,7 @@ begin
     readln();
     exit;
   end;
-
+  StartTime := Now;
   SetLength(mass, n);
   randomize;
   
@@ -185,4 +187,6 @@ begin
     readln();
     exit;
   end;
+  EndTime := Now;
+  WriteLn('Время выполнения: ', FormatDateTime('hh:nn:ss.zzz', EndTime - StartTime));
 end.

@@ -1,15 +1,31 @@
+//var и прямой ход
+
 {$codepage UTF8}
 program sort;
 uses SysUtils, DateUtils;
 var
   StartTime, EndTime: TDateTime;
-  mass, massSort: array of integer;
-  i, n, a, Sorted, SortType, temp: integer;
+  mass, massSort, masstart: array of integer;
+  i, n, a, sum, sum1, Sorted, SortType, temp: integer;
 
-function Test(var Mass : array of Integer; n : Integer) : Boolean;
+function Test(var Mass, masstart : array of Integer; n: Integer) : Boolean;
 begin
   // проверка упорядоченности по возрастанию
   i := 0;
+
+  for i := 0 to n-1 do
+  begin
+  sum := sum + mass[i];
+  sum1 := sum1 + masstart[i];
+  if sum <> sum1 then
+  begin
+       writeln('Не все элементы отсортированны');
+       readln();
+       exit
+  end;
+  end;
+
+  i:=0;
   while (i < n-1) and (Mass[i] <= Mass[i+1]) do
     i := i+1;
   if i < n-1 then Test := False
@@ -107,14 +123,21 @@ begin
   end;
   StartTime := Now;
   SetLength(mass, n);
+  SetLength(masstart, n);
   randomize;
 
   for i := 0 to n-1 do
   begin
     if random(2) = 0 then
-      mass[i] := Random(999)
+    begin
+      mass[i] := Random(1000);
+      masstart[i] := mass[i];
+    end
     else
-      mass[i] := -1*(Random(999));
+    begin
+      mass[i] := -1*(Random(1000));
+      masstart[i] := mass[i];
+    end;
   end;
 
   writeln('------------------------------ неотсортированный массив ---------------------------');
@@ -146,11 +169,10 @@ begin
   if SortType = 2 then
   begin
     SetLength(massSort, n);
-    n := n - 1;
     while Sorted <> 1 do
     begin
       Sorted := 1;
-      for i := 0 to n - 1 do
+      for i := 0 to n - 2 do
       begin
         if mass[i] > mass[i+1] then
         begin
@@ -163,6 +185,12 @@ begin
     end;
   end;
 
+
+
+
+
+
+
   // Третий метод сортировки (сортировка слиянием)
   if SortType = 3 then
   begin
@@ -174,7 +202,7 @@ begin
   for i := 0 to n-1 do
     write(mass[i], ' ');
 
-  if Test(mass, n) then
+  if Test(mass, masstart, n) then
   begin
     writeln();
     writeln('Массив отсортирован');
